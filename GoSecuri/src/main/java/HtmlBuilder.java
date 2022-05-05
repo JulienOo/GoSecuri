@@ -15,21 +15,6 @@ import java.nio.file.*;
 public class HtmlBuilder {
     private StringBuilder _stringBuilder = new StringBuilder();
 
-    public String toString() {
-        return _stringBuilder.toString();
-    }
-
-    public void append(String str) {
-        _stringBuilder.append(str);
-    }
-
-    private static String GetResourceByName(String viewName) throws IOException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream(viewName);
-        return new String(input.readAllBytes(), StandardCharsets.UTF_8);
-    }
-
-
     public void createIndexHtml(Agent[] agents)  throws IOException {
         File htmlIndexTemplate = new File("/var/jenkins_home/workspace/GoSecuri/templates/index.html");
         String htmlString = FileUtils.readFileToString(htmlIndexTemplate, "UTF8");
