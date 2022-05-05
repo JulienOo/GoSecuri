@@ -37,7 +37,7 @@ public class HtmlBuilder {
             htmlString = htmlString.replace("$img", agents[i].image);
             String material = "";
             for (int j = 0; j<agents[i].materials.length; j++){
-                material += "<div><input type='checkbox' checked protected>"+agents[i].materials[j]+"</div>";
+                material += "<div><input type='checkbox' checked disabled>"+agents[i].materials[j]+"</div>";
             }
             htmlString = htmlString.replace("$listeMateriel", material);
             File newIndex = new File("/docker/www/"+agents[i].id+".html");
