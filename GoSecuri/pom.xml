@@ -75,7 +75,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
                             <mainClass>
-                                Program
+                                Main
                             </mainClass>
                         </manifest>
                     </archive>
