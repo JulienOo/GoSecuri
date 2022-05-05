@@ -13,6 +13,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Agent {
     public String id;
@@ -68,11 +69,35 @@ public class Agent {
 
     public static String[] getMateriel(String id) throws IOException {
         String url_agent = "https://github.com/JulienOo/GoSecuri/blob/main/Agents/"+id+".txt";
+        String url_liste = "https://github.com/JulienOo/GoSecuri/blob/main/liste.txt";
         Element body_agent = Jsoup.connect(url_agent).get().body();
+        Element body_liste = Jsoup.connect(url_liste).get().body();
         Elements info_agent = body_agent.getElementsByClass("blob-code blob-code-inner js-file-line");
+        Elements info_liste = body_liste.getElementsByClass("blob-code blob-code-inner js-file-line");
         List<String> list_info = info_agent.eachText();
         String[] array_info = list_info.toArray(new String[list_info.size()]);
-        return Arrays.copyOfRange(array_info, 4, array_info.length);
+        List<String> list_liste = info_liste.eachText();
+        String[] array_liste = list_liste.toArray(new String[list_liste.size()]);
+        String[][] array_materiels = new String[array_liste.length][];
+        for (int i = 0; i < array_liste.length; i++) {
+            String[] mat = array_liste[i].split(" ");
+            array_materiels[i] = new String[2];
+            array_materiels[i][0] = mat[0];
+            String nom = "";
+            for (int j = 1; j < mat.length; j++) {
+                nom = nom + mat[j] + " ";
+            }
+            array_materiels[i][1] = nom;
+        }
+        String[] res = Arrays.copyOfRange(array_info, 4, array_info.length);
+        for (int i = 0; i < res.length; i++) {
+            for (int j = 0; j < array_materiels.length; j++) {
+                if(Objects.equals(res[i], array_materiels[j][0])){
+                    res[i] = array_materiels[j][1];
+                }
+            }
+        }
+        return res;
     }
 }
 

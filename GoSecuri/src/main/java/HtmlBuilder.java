@@ -31,7 +31,7 @@ public class HtmlBuilder {
 
 
     public void createIndexHtml(Agent[] agents)  throws IOException {
-        File htmlIndexTemplate = new File("/docker/data/templates/index.html");
+        File htmlIndexTemplate = new File("/var/jenkins_home/workspace/GoSecuri/templates/index.html");
         String htmlString = FileUtils.readFileToString(htmlIndexTemplate, "UTF8");
         String content = "";
         for (int i = 0; i<agents.length; i++){
@@ -44,7 +44,7 @@ public class HtmlBuilder {
 
     public void createFileAgent(Agent[] agents) throws  IOException{
         for (int i = 0; i<agents.length; i++) {
-            File htmlIndexTemplate = new File("/docker/data/templates/agent.html");
+            File htmlIndexTemplate = new File("/var/jenkins_home/workspace/GoSecuri/agent.html");
             String htmlString = FileUtils.readFileToString(htmlIndexTemplate, "UTF8");
             htmlString = htmlString.replace("$nom", agents[i].lastName);
             htmlString = htmlString.replace("$prenom", agents[i].firstName);
